@@ -1,4 +1,4 @@
-app = "hello-epic-stack-770d"
+app = "hello-epic-stack"
 primary_region = "sjc"
 kill_signal = "SIGINT"
 kill_timeout = 5
