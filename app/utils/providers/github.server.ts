@@ -19,14 +19,14 @@ const GitHubUserParseResult = z
 		}),
 	)
 
-const shouldMock = process.env.GITHUB_CLIENT_ID?.startsWith('MOCK_')
+const shouldMock = process.env.GH_CLIENT_ID?.startsWith('MOCK_')
 
 export class GitHubProvider implements AuthProvider {
 	getAuthStrategy() {
 		return new GitHubStrategy(
 			{
-				clientID: process.env.GITHUB_CLIENT_ID,
-				clientSecret: process.env.GITHUB_CLIENT_SECRET,
+				clientID: process.env.GH_CLIENT_ID,
+				clientSecret: process.env.GH_CLIENT_SECRET,
 				callbackURL: '/auth/github/callback',
 			},
 			async ({ profile }) => {
@@ -57,7 +57,7 @@ export class GitHubProvider implements AuthProvider {
 			async getFreshValue(context) {
 				const response = await fetch(
 					`https://api.github.com/user/${providerId}`,
-					{ headers: { Authorization: `token ${process.env.GITHUB_TOKEN}` } },
+					{ headers: { Authorization: `token ${process.env.GH_TOKEN}` } },
 				)
 				const rawJson = await response.json()
 				const result = GitHubUserSchema.safeParse(rawJson)
